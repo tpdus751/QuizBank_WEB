@@ -100,6 +100,6 @@ replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java
 
-/QuizBank/src/main/webapp/common/kakaoKey
+/QuizBank/src/main/webapp/common/kakaoKey.jsp
 
 /QuizBank/src/main/webapp/js/kakaoKey.js
