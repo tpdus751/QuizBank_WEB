@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.red {
+		color: red
+	}
+	.orange {
+		color: orange
+	}
+	.yellow {
+		color: yellow
+	}
+	.green {
+		color: green
+	}
+	.blue {
+		color: blue
+	}
+	.navy {
+		color: navy
+	}
+	.purple {
+		color: purple
+	}
+</style>
+<script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#btn01').click(function() {
+			$('li').addClass(function() {
+				return $(this).text().toLowerCase()
+			})
+			
+			
+		})
+		$('#btn02').click(function() {
+			$('li').removeClass(function() {
+				return $(this).text().toLowerCase()
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<h2>색상표</h2>
+	<ul>
+		<li>RED</li>
+		<li>ORANGE</li>
+		<li>YELLOW</li>
+		<li>GREEN</li>
+		<li>BLUE</li>
+		<li>NAVY</li>
+		<li>PURPLE</li>
+	</ul>
+	<hr>
+	<button id="btn01">색상추가</button>
+	<button id="btn02">색상삭제</button>
+</body>
+</html>

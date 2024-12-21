@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: verdana, sans-serif;
+	font-size: 1.2em;
+}
+
+header {
+	margin: 1%;
+	margin-left: 15%;
+	margin-right: 15%;
+	height: 80px;
+}
+
+section {
+	margin-left: 17%;
+	margin-right: 17%;
+	min-height: 600px;
+}
+
+footer {
+	margin-left: 15%;
+	margin-right: 15%;
+	padding: 20px;
+	background: #ccc
+}

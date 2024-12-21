@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('button').click(function() {
+			//$('img').last().prependTo('body')
+			$('img').first().appendTo('body')
+		})
+	})
+</script>
+</head>
+<body>
+	<img src="images/dog01.jpg">
+	<img src="images/dog02.jpg">
+	<img src="images/dog03.jpg">
+	<img src="images/dog04.jpg">
+	<hr>
+	<button>클릭</button>
+</body>
+</html>

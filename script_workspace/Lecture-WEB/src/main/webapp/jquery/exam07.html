@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="lib/jquery-3.7.1.min.js"></script>
+<script>
+	/*
+		h1태그를 클릭하면 글자색이 빨간색으로 변경되고,
+		h1태그에 마우스를 접근시키면 배경을 핑크색으로 변경하고
+		h1태그에 마우스가 벗어나면 배경을 흰색으로 변경하는 코드를 작성
+	*/
+	
+	$(document).ready(function() {
+		$('h1').on({
+			'click': function(event) {
+				$(this).css('color', 'red')
+				console.log(event.pageX, event.pageY)
+			}, mouseenter: function(){
+				$(this).css('background-color', 'pink')
+			}, mouseleave: function() {
+				$(this).css('background-color', 'white')
+			}, dblclick: function() {
+				$(this).css('color', 'black')
+			}
+		})
+		
+		/*
+		$('h1').click(function() {
+			
+		})
+		$('h1').mouseenter(function() {
+			
+		})
+		$('h1').mouseleave(function() {
+			
+		})
+		*/
+	})
+	
+</script>
+</head>
+<body>
+
+	<h1>Hello World!!!!</h1>
+	<h1>Bye!!!!!!!! javascript!!!!</h1>
+</body>
+</html>

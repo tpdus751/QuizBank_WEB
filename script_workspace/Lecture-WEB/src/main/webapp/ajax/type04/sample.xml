@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<members>
+	<member>
+		<id>hong</id>
+		<name>홍길동</name>
+	</member>
+	<member>
+		<id>park</id>
+		<name>박길동</name>
+	</member>
+	<member>
+		<id>yoon</id>
+		<name>윤길동</name>
+	</member>
+</members>

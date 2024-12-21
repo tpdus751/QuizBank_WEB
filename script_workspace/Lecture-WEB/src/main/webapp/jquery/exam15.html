@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.container {
+		display: flex;
+	}
+
+	img {
+		width: 250px;
+		height: 220px;
+	}
+	
+	button {
+		height: 220px;
+	}
+</style>
+<script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#prevBtn').click(function() {
+			$('img').first().appendTo('#gallery')
+		})
+		
+		$('#nextBtn').click(function() {
+			$('img').last().prependTo('#gallery')
+		})
+		
+		setInterval(function() {
+			$('#nextBtn').trigger('click')
+		}, 4000)
+	})
+</script>
+</head>
+<body>
+	<div class="container">
+		<button id="prevBtn">PREV</button>
+		<span id="gallery">
+			<img src="images/dog01.jpg">
+			<img src="images/dog02.jpg">
+			<img src="images/dog03.jpg">
+			<img src="images/dog04.jpg">
+		</span>
+		<button id="nextBtn">NEXT</button>
+	</div>
+</body>
+</html>

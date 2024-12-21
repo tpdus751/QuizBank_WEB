@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.red {
+		color: red !important
+	}
+	
+	.blue {
+		color: blue
+	}
+</style>
+<script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		
+		$('#btn01').click(function() {
+			let html = $('p').html()
+			let text = $('p').text()
+			let attr = $('a').attr('href')
+			
+			alert(`html : ${html}\ntext : ${text}\nhref : ${attr}`)
+		})
+		
+		$('#btn02').click(function() {
+			$('p').text('<mark>문장이 변경되었습니다</mark>')
+		})
+		
+		$('#btn03').click(function() {
+			$('p').html('<mark>문장이 변경되었습니다</mark>')
+		})
+		
+		$('#btn04').click(function() {
+			$('a').attr('href', 'http://www.daum.net')
+		})
+		
+		$('#btn05').click(function() {
+			$('p').html(function(index, element) {
+				//console.log(arguments)
+				return (index+1 + ' : <em>문장이 변환되었습니다</em>')
+			})
+			
+			
+		})
+		$('#btn06').click(function() {
+			
+			//$('ol').append('<li>노랑</li>')
+			//$('ol').prepend('<li>노랑</li>')
+			//$('ol').append('<li>노랑</li>', '<li>보라</li>')
+			//$('li:last').after('<li>노랑</li>')
+			$('li:first').before('<li>노랑</li>')
+			
+			/*
+			let liTag = document.createElement('li')	// <li></li>
+			let text = document.createTextNode('노랑')
+			liTag.appendChild(text)		// <li>노랑</li>
+			
+			let olTag = document.querySelector('ol')
+			olTag.appendChild(liTag)
+			*/
+		})	
+		
+		$('#btn07').click(function() {
+			/*
+			let pTags = document.getElementsByTagName('p')
+			for(let i = 0; i < pTags.length; i++) {
+				let pTag = pTags[i]
+				pTag.parentNode.removeChild(pTag)
+			}
+			*/
+			
+			//$('p').remove()
+			//$('div').remove()
+			//$('div').empty()
+			//$('p#p01').remove()
+			//$('p.p02').remove()
+			$('p').remove('#p01, .p02')
+		})
+		
+		$('#btn08').click(function() {
+			//$('li').css('color', 'red')
+			$('li').addClass('red')
+		})
+		
+		$('#btn09').click(function() {
+			$('li').addClass('blue')
+		})
+	})
+</script>
+</head>
+<body>
+	<p>색상표</p>
+	<ol>
+		<li>빨강</li>
+		<li>파랑</li>
+		<li>초록</li>
+	</ol>
+	<hr class="p02">
+	<div>
+		<a href="http://www.naver.com">사이트이동</a>
+		<p id="p01">내 이름은 <b>홍길동</b>이고, 별명은 <i>의적</i>입니다.</p>
+		<p class="p02">내 이름은 <strong>홍길순</strong>이고, 별명은 <em>의적2</em>입니다.</p>
+	</div>
+	<button id="btn01">상태보기</button>
+	<button id="btn02">TEXT변환</button>
+	<button id="btn03">HTML변환</button>
+	<button id="btn04">주소변환</button>
+	<button id="btn05">문장별 변환</button>
+	<button id="btn06">색상추가</button>
+	<button id="btn07">삭제</button>
+	<button id="btn08">색상변환-RED</button>
+	<button id="btn09">색상변환-BLUE</button>
+</body>
+</html>
