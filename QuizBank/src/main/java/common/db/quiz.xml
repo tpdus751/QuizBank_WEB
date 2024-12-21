@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.QuizDAO">
+	
+	<!-- 공통 코드 빼내기 작업 : select Quiz -->
+	<sql id="selectQuiz">
+		select *  
+			from quizs
+	</sql>
+	
+	<!-- 모든 문제를 조회하는 sql : 최신순 -->
+	<select id="selectAllQuizList" parameterType="subjectPageVO" resultType="quizVO">
+	    SELECT *
+			FROM (
+			    SELECT q.*, ROW_NUMBER() OVER (ORDER BY q.reg_dt DESC, q.quiz_no ASC) AS rn
+			    FROM QUIZS q
+			    where group_layer = 0
+			)
+			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
+	</select>
+
+	
+	<!-- 해당 SUBJECT의 문제 리스트를 모두 조회 -->
+	<select id="selectSubjectQuizList" parameterType="subjectPageVO" resultType="quizVO">
+		SELECT *
+			FROM (
+			    SELECT q.*, ROW_NUMBER() OVER (ORDER BY q.reg_dt DESC, q.quiz_no ASC) AS rn
+			    FROM QUIZS q
+			    WHERE SUBJECT_NO = #{subject_no}
+			    and group_layer = 0
+			)
+			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
+	</select>
+	
+	<select id="selectQuizByNo" parameterType="int" resultType="quizVO">
+		<include refid="selectQuiz" />
+		where quiz_no = #{quiz_no}
+	</select>
+	
+	<select id="selectChoicesByQuizNo" parameterType="int" resultType="quizChoiceVO">
+		select *
+			from quiz_type_choice
+			where quiz_no = #{quiz_no}
+	</select>
+	
+	<delete id="deleteQuizByQuizNo" parameterType="int">
+		delete from quizs where quiz_no = #{quiz_no}
+	</delete>
+	
+	<insert id="insertQuizByQuizVO" parameterType="quizVO">
+		INSERT INTO QUIZS (
+        QUIZ_NO, ORI_CODE_NO, GROUP_NO, GROUP_LAYER, MEMBER_EMAIL, SUBJECT_NO, 
+        QUIZ_NM, QUIZ_TYPE, CONTENT, EXPLANATION, ANSWER, REG_DT, TRY_CNT, 
+        CORRECT_RATIO, VIEW_CNT, QUIZ_IMG
+	    ) 
+	    VALUES (
+	        seq_quiz_no.nextval, 0, 0, 0, #{member_email}, #{subject_no}, 
+	        #{quiz_nm}, #{quiz_type}, #{content}, #{explanation}, #{answer}, sysdate,  
+	        0, 0, 0, #{quiz_img}
+	    )
+	</insert>
+	
+	<insert id="insertChoiceByChoiceVO" parameterType="quizChoiceVO">
+		INSERT INTO QUIZ_TYPE_CHOICE (
+        QUIZ_NO, CHOICE_1, CHOICE_2, CHOICE_3, CHOICE_4, CHOICE_5  
+	    ) 
+	    VALUES (
+	        #{quiz_no}, #{choice_1}, #{choice_2}, #{choice_3}, #{choice_4}, #{choice_5} 
+	    )
+	</insert>
+	
+	<delete id="deleteChoiceByQuizNo" parameterType="int">
+		delete from quiz_type_choice where quiz_no = #{quiz_no}
+	</delete>
+	
+	<select id="selectQuizByQuizVO" parameterType="quizVO" resultType="quizVO">
+		select *
+			from (
+				select *
+					from quizs
+					where member_email = #{member_email} 
+					and subject_no = #{subject_no}
+					and quiz_nm = #{quiz_nm}
+					order by reg_dt desc
+			)
+			where rownum = 1
+	</select>
+	
+	<update id="updateQuizByQuizVO" parameterType="quizVO">
+		update quizs 
+			set
+				quiz_nm = #{quiz_nm},
+				content = #{content},
+				explanation = #{explanation},
+				answer = #{answer}
+			where quiz_no = #{quiz_no}
+	</update>
+	
+	<update id="updateQuiChoicesByChoiceVO" parameterType="quizChoiceVO">
+		update quiz_type_choice 
+			set
+				choice_1 = #{choice_1},
+				choice_2 = #{choice_2},
+				choice_3 = #{choice_3},
+				choice_4 = #{choice_4},
+				choice_5 = #{choice_5}
+			where quiz_no = #{quiz_no}
+	</update>
+	
+	<update id="updateQuizViewPlusByQuizNo" parameterType="int">
+		update quizs set view_cnt = view_cnt + 1 where quiz_no = #{quiz_no}
+	</update>
+	
+	<insert id="insertQuizSaveByVO" parameterType="saveQuizToListVO">
+		INSERT INTO MEMBER_SAVEQUIZS (
+        	MEMBER_EMAIL, QUIZ_NO  
+	    ) 
+	    VALUES (
+	        #{member_email}, #{quiz_no}
+	    )
+	</insert>
+	
+	<select id="selectQuizSaveByVO" parameterType="saveQuizToListVO" resultType="saveQuizToListVO">
+		select *
+			from member_savequizs
+			where member_email = #{member_email}
+			and quiz_no = #{quiz_no}
+	</select>
+	
+	<select id="selectSaveQuizList" parameterType="saveQuizToListVO" resultType="saveQuizToListVO">
+		select *
+			from member_savequizs
+			where member_email = #{member_email}
+	</select>
+	
+	<delete id="deleteMemberSaveQuiz" parameterType="saveQuizToListVO">
+		delete from member_savequizs where member_email = #{member_email} and quiz_no = #{quiz_no}
+	</delete>
+	
+	<select id="selectAllQuizCnt" resultType="int">
+		select count(*)
+			from quizs
+	</select>
+	
+	<select id="selectRandomQuizsFromAll" resultType="quizVO">
+		SELECT *
+			FROM (
+			    SELECT *
+			    FROM quizs
+			    ORDER BY DBMS_RANDOM.VALUE
+			)
+			WHERE ROWNUM &lt;= 20
+	</select>
+	
+	<select id="selectRandomQuizsFromSubject" parameterType="int" resultType="quizVO">
+		SELECT *
+			FROM (
+			    SELECT *
+			    FROM quizs
+			    WHERE SUBJECT_NO = #{subject_no}
+			    ORDER BY DBMS_RANDOM.VALUE
+			)
+			WHERE ROWNUM &lt;= 20
+	</select>
+	
+	<select id="selectRandomQuizsFromMySave" parameterType="java.lang.String" resultType="quizVO">
+		SELECT *
+			FROM (
+				SELECT M1.*
+				    FROM QUIZS M1
+				        JOIN MEMBER_SAVEQUIZS M2 ON M2.QUIZ_NO = M1.QUIZ_NO
+				                                AND M2.MEMBER_EMAIL = #{member_email}
+				    ORDER BY DBMS_RANDOM.VALUE
+			)
+			WHERE ROWNUM &lt;= 20
+	</select>
+	
+	<insert id="insertQuizHintByVO" parameterType="quizHintVO">
+		INSERT INTO QUIZ_HINT (
+        	  QUIZ_NO, SEPARATE, KOREAN, ENGLISH, CODE, NUM
+	    ) 
+	    VALUES (
+	        #{quiz_no}, #{separate}, #{korean}, #{english}, #{code}, #{num}
+	    )
+	</insert>
+	
+	<select id="selectQuizHintByNo" parameterType="int" resultType="quizHintVO">
+		select *
+			from quiz_hint
+			where quiz_no = #{quiz_no}
+	</select>
+	
+	<delete id="deleteQuizHintByNo" parameterType="int">
+		delete from quiz_hint where quiz_no = #{quiz_no}
+	</delete>
+	
+	<select id="selectMyQuizListByEmail" parameterType="java.lang.String" resultType="quizVO">
+		select *
+			from quizs
+			where member_email = #{member_email}
+			order by reg_dt desc
+	</select>
+	
+	<select id="selectMemberQuizVOByVO" parameterType="memberQuizVO" resultType="memberQuizVO">
+		select *
+			from member_quiz
+			where member_email = #{member_email}
+			and quiz_no = #{quiz_no}
+	</select>
+	
+	<insert id="insertMemberQuizByVO" parameterType="memberQuizVO">
+		INSERT INTO MEMBER_QUIZ (
+        	  MEMBER_EMAIL, QUIZ_NO, IS_CORRECT, QUIZ_TRY_CNT
+	    ) 
+	    VALUES (
+	        #{member_email}, #{quiz_no}, #{is_correct}, #{quiz_try_cnt}
+	    )
+	</insert>
+	
+	<update id="updateMemberQuizByVO" parameterType="memberQuizVO">
+		update member_quiz
+			set
+				is_correct = #{is_correct},
+				quiz_try_cnt = quiz_try_cnt + 1
+			where member_email = #{member_email} 
+			and quiz_no = #{quiz_no}
+	</update>
+	
+	<update id="updateQuizInfoWhenTestEnded" parameterType="quizVO">
+		update quizs
+			set
+				try_cnt = #{try_cnt},
+				correct_cnt = #{correct_cnt},
+				correct_ratio = #{correct_ratio}
+			where quiz_no = #{quiz_no}
+	</update>
+	
+	<select id="selectMyIncorrectQuizListMyEmail" parameterType="java.lang.String" resultType="quizVO">
+		SELECT M1.*
+		    FROM QUIZS M1
+		        JOIN MEMBER_QUIZ M2 ON M2.QUIZ_NO = M1.QUIZ_NO
+				                   AND M2.MEMBER_EMAIL = #{member_email}
+				                   AND M2.IS_CORRECT = 'X'
+	</select>
+	
+	<update id="updateQuizAtCreate" parameterType="int">
+		update quizs
+			set
+				ori_code_no = #{quiz_no},
+				group_no = 0,
+				group_layer = 0
+			where quiz_no = #{quiz_no}
+	</update>
+	
+	<select id="selectLastGroupNoByVO" parameterType="quizVO" resultType="Integer">
+		
+		select group_no
+			from quizs
+			where ori_code_no = #{ori_code_no}
+			and group_no = #{group_no}
+			
+	</select>
+	
+	<update id="updateGroupNoPlusOne" parameterType="quizVO">
+		update quizs
+			set
+				group_no = group_no + 1
+			where ori_code_no = #{ori_code_no} 
+			and group_no >= #{group_no}
+	</update>
+	
+	<update id="updateQuizInfoForReply" parameterType="quizVO">
+		update quizs
+			set
+				ori_code_no = #{ori_code_no}, group_no = #{group_no}, group_layer = #{group_layer}
+			where quiz_no = #{quiz_no}
+	</update>
+	
+	<select id="selectReplyQuizsByNo" parameterType="int" resultType="quizVO">
+		select m1.*, m2.nick_nm
+			from quizs m1
+				join members m2 on m2.member_email = m1.member_email
+			where m1.ori_code_no = #{quiz_no}
+            order by group_no, group_layer
+	</select>
+	
+	<select id="selectFourLatestQuizs" resultType="quizVO">
+		select *
+			from (
+				select *
+					from quizs
+					where group_layer = 0
+					order by reg_dt desc
+				)
+			where rownum &lt;= 4
+	</select>
+	
+	<select id="selectFourHotQuizs" resultType="quizVO">
+		select *
+			from (
+				select *
+					from quizs
+					where group_layer = 0
+					order by view_cnt desc
+				)
+			where rownum &lt;= 4
+	</select>
+	
+	<select id="selectFourHardQuizs" resultType="quizVO">
+		select *
+			from (
+				select *
+					from quizs
+					where group_layer = 0
+					order by correct_ratio, try_cnt desc
+				)
+			where rownum &lt;= 4
+	</select>
+	
+	<select id="selectTotalQuizCnt" resultType="Integer">
+		select count(*)
+			from quizs
+			where group_layer = 0
+	</select>
+	
+	<select id="selectTotalSubjectQuizCnt" parameterType="int" resultType="Integer">
+		select count(*)
+			from quizs
+			where subject_no = #{subject_no}
+			and group_layer = 0
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties resource="kr/ac/kopo/mybatis/db.properties" />
+
+
+	<typeAliases>
+		<typeAlias type="kr.ac.kopo.member.vo.MemberVO" alias="memberVO" />	
+		<typeAlias type="kr.ac.kopo.member_credit.vo.MemberCreditFlowVO" alias="memberCreditFlowVO" />
+		<typeAlias type="kr.ac.kopo.quiz.vo.QuizVO" alias="quizVO" />
+		<typeAlias type="kr.ac.kopo.quiz.vo.MultipleQuizChoiceVO" alias="quizChoiceVO" />	
+		<typeAlias type="kr.ac.kopo.subject.vo.SubjectVO" alias="subjectVO" />
+		<typeAlias type="kr.ac.kopo.subject_page.vo.SubjectPageVO" alias="subjectPageVO" />
+		<typeAlias type="kr.ac.kopo.quiz.vo.SaveQuizToListVO" alias="saveQuizToListVO" />
+		<typeAlias type="kr.ac.kopo.quiz.vo.QuizHintVO" alias="quizHintVO" />
+		<typeAlias type="kr.ac.kopo.member_quiz.vo.MemberQuizVO" alias="memberQuizVO" />
+		<typeAlias type="kr.ac.kopo.comment.vo.QuizCommentVO" alias="quizCommentVO" />
+		<typeAlias type="kr.ac.kopo.comment.vo.CommentLayer1VO" alias="commentLayer1VO" />
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.user}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+
+	<mappers>
+    	<mapper resource="common/db/member.xml"/>
+    	<mapper resource="common/db/quiz.xml"/>
+    	<mapper resource="common/db/subject.xml"/>
+    	<mapper resource="common/db/comment.xml" />
+    </mappers> 
+
+</configuration>

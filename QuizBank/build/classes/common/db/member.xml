@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.MemberDAO">
+	
+	<!-- 공통 코드 빼내기 작업 : select Member -->
+	<sql id="selectMember">
+		select MEMBER_EMAIL, MEMBER_NM, MEMBER_PWD, NICK_NM, TYPE, PHONE1, PHONE2, PHONE3, CREDIT, TO_CHAR(REG_DT, 'YYYY-MM-DD') AS REG_DT, PROHIBIT 
+			from members
+	</sql>
+	
+	
+	<!-- 로그인시 멤버가 존재하는지 조회하는 sql -->
+	<select id="selectMemberLogin" parameterType="memberVO" resultType="memberVO">
+		<include refid="selectMember" />
+		where member_email = #{member_email}
+		and member_pwd = #{member_pwd}
+	</select>
+	
+	<select id="selectMemberById" parameterType="memberVO" resultType="memberVO">
+		<include refid="selectMember" />
+		where member_email = #{member_email}
+	</select>
+
+	<insert id="insertUnMember" parameterType="memberVO">
+		INSERT INTO MEMBERS (MEMBER_EMAIL, NICK_NM, TYPE) VALUES(#{member_email}, #{nick_nm}, #{type})
+	</insert>
+	
+	<update id="updateMemberByVO" parameterType="memberVO">
+		update members 
+		    set member_nm = #{member_nm},
+				member_pwd = #{member_pwd},
+				nick_nm = #{nick_nm},
+				type = #{type},
+				phone1 = #{phone1},
+				phone2 = #{phone2},
+				phone3 = #{phone3},
+				credit = #{credit},
+				reg_dt = sysdate
+			where member_email = #{member_email}
+	</update>
+	
+	<insert id="insertMemberByVO" parameterType="memberVO">
+		INSERT INTO MEMBERS (
+        MEMBER_EMAIL, MEMBER_NM, MEMBER_PWD, NICK_NM, TYPE, PHONE1, PHONE2, PHONE3, CREDIT, REG_DT
+	    ) 
+	    VALUES (
+	        #{member_email}, #{member_nm}, #{member_pwd}, #{nick_nm}, #{type}, #{phone1}, #{phone2}, #{phone3}, #{credit}, sysdate 
+	    )
+	</insert>
+	
+	<insert id="insertCreditFlow" parameterType="memberCreditFlowVO">
+		INSERT INTO MEMBER_CREDIT_FLOW (
+        FLOW_NO, MEMBER_EMAIL, WORK_CREDIT, MEMBER_CREDIT, WORK_NM, WORK_DT
+	    ) 
+	    VALUES (
+	        SEQ_FLOW_NO.NEXTVAL, #{member_email}, #{work_credit}, #{member_credit}, #{work_nm}, sysdate
+	    )
+	</insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

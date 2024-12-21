@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.SubjectDAO">
+	
+	<!-- 공통 코드 빼내기 작업 : select Subject -->
+	<sql id="selectSubject">
+		select SUBJECT_NO, SUBJECT_NM, REG_DT, PAGE_NM
+			from subjects
+	</sql>
+	
+	<!-- 모든 과목를 조회하는 sql : 최신순 -->
+	<select id="selectAllSubjectList" resultType="subjectVO">
+		<include refid="selectSubject" />
+	</select>
+	
+	<select id="selectSubject" parameterType="subjectPageVO" resultType="subjectVO">
+		<include refid="selectSubject" />
+		where SUBJECT_NO = #{subject_no}
+	</select>
+	
+	<select id="selectSubjectBySubjectNo" parameterType="int" resultType="subjectVO">
+		<include refid="selectSubject" />
+		where subject_no = #{subject_no}
+	</select>
+	
+	<select id="selectSubjectBySubjectNm" parameterType="subjectVO" resultType="subjectVO">
+		<include refid="selectSubject" />
+		where subject_nm = #{subject_nm}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
