@@ -331,6 +331,64 @@
 			where subject_no = #{subject_no}
 			and group_layer = 0
 	</select>
+	
+	<select id="selectAllQuizOrderByViewCntDesc" parameterType="subjectPageVO" resultType="quizVO">
+		select quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt
+    		from (
+	                SELECT quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt, rownum as rn 
+	                            FROM (
+	                                SELECT q.*
+	                                FROM QUIZS q
+	                                where group_layer = 0
+	                                ORDER BY VIEW_CNT DESC
+	                            	)
+            	)
+			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
+	</select>
+	
+	<select id="searchAllQuizOrderByLowCorrectRatio" parameterType="subjectPageVO" resultType="quizVO">
+		select quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt
+    		from (
+                SELECT quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt, rownum as rn 
+                    FROM (
+                        SELECT q.*
+                        FROM QUIZS q
+                        where group_layer = 0
+                        order by correct_ratio, try_cnt desc
+                    )
+            )
+			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
+	</select>
+	
+	<select id="selectSubjectQuizOrderByViewCntDesc" parameterType="subjectPageVO" resultType="quizVO">
+		select quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt
+    		from (
+	                SELECT quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt, rownum as rn 
+	                            FROM (
+	                                SELECT q.*
+	                                FROM QUIZS q
+	                                where group_layer = 0
+	                                and SUBJECT_NO = #{subject_no}
+	                                ORDER BY VIEW_CNT DESC
+	                            	)
+            	)
+			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
+	</select>
+	
+	<select id="selectSubjectQuizOrderByLowCorrectRatio" parameterType="subjectPageVO" resultType="quizVO">
+		select quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt
+    		from (
+                SELECT quiz_no, ori_code_no, group_no, group_layer, member_email, subject_no, quiz_nm, quiz_type, content, explanation, answer, reg_dt, try_cnt, correct_ratio, view_cnt, quiz_img, correct_cnt, rownum as rn 
+                    FROM (
+                        SELECT q.*
+                        FROM QUIZS q
+                        where group_layer = 0
+                        and SUBJECT_NO = #{subject_no}
+                        order by correct_ratio, try_cnt desc
+                    )
+            )
+			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
+	</select>
 </mapper>
 
 

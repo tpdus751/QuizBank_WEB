@@ -89,5 +89,13 @@ public interface QuizService {
 	public Integer searchToTalQuizCnt();
 
 	public Integer searchTotalSubjectQuizCnt(int subject_no);
+
+	public List<QuizVO> searchAllQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO);
+
+	public List<QuizVO> searchAllQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO);
+
+	public List<QuizVO> searchSubjectQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO);
+
+	public List<QuizVO> searchSubjectQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO);
 	
 }

@@ -28,17 +28,17 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdownSubjects" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">종류별 문제보기</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownSubjects">
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=0:1">모든 문제보기</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=0:1&filter=none">모든 문제보기</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <!-- 과목 리스트 -->
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=1:1">자바</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=2:1">운영체제</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=3:1">파이썬</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=4:1">빅데이터</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=5:1">정보통신개론</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=6:1">프로그래밍언어실습</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=7:1">스크립트언어실습</a></li>
-                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=8:1">IT용어</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=1:1&filter=none">자바</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=2:1&filter=none">운영체제</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=3:1&filter=none">파이썬</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=4:1&filter=none">빅데이터</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=5:1&filter=none">정보통신개론</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=6:1&filter=none">프로그래밍언어실습</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=7:1&filter=none">스크립트언어실습</a></li>
+                                <li><a class="dropdown-item" href="/QuizBank/quiz/quizListPage.do?page=8:1&filter=none">IT용어</a></li>
                             </ul>
                         </li>
                         <!-- 로그인된 경우에만 표시되는 메뉴 -->

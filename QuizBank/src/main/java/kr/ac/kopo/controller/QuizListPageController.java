@@ -1,5 +1,6 @@
 package kr.ac.kopo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -25,13 +26,13 @@ public class QuizListPageController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.removeAttribute("subject");
-		request.removeAttribute("pageName");
-		request.removeAttribute("subject_no");
-		request.removeAttribute("currentPage");
-		request.removeAttribute("totalPages");
-		request.removeAttribute("startPage");
-		request.removeAttribute("endPage");
+//		request.removeAttribute("subject");
+//		request.removeAttribute("pageName");
+//		request.removeAttribute("subject_no");
+//		request.removeAttribute("currentPage");
+//		request.removeAttribute("totalPages");
+//		request.removeAttribute("startPage");
+//		request.removeAttribute("endPage");
 		
 		String pageInfo = request.getParameter("page");
 
@@ -47,6 +48,9 @@ public class QuizListPageController implements Controller {
 		
 		SubjectPageVO subjectPageVO = new SubjectPageVO(subject_no, currentPage);
 		System.out.println(subjectPageVO.toString());
+		
+		String filter = request.getParameter("filter");
+		
 		if (subject_no == 0) {
 			totalQuizCnt = quizService.searchToTalQuizCnt();
 			if (totalQuizCnt == null) {
@@ -60,11 +64,23 @@ public class QuizListPageController implements Controller {
 			endPage = totalPages;
 			
 			System.out.println("현재 페이지 : " + currentPage);
-
-			List<QuizVO> allQuizList = quizService.searchAllQuiz(subjectPageVO);
-			for (QuizVO quiz : allQuizList) {
-				System.out.println(quiz);
+			
+			List<QuizVO> allQuizList = null;
+			
+			if (filter.equals("none")) {
+				allQuizList = quizService.searchAllQuiz(subjectPageVO);
+				for (QuizVO quiz : allQuizList) {
+					System.out.println(quiz);
+				}
+			} else {
+				if (filter.equals("views")) {
+					allQuizList = quizService.searchAllQuizOrderByViewCntDesc(subjectPageVO);
+				} else if (filter.equals("low_correct")) {
+					allQuizList = quizService.searchAllQuizOrderByLowCorrectRatio(subjectPageVO);
+				}
 			}
+			
+			request.setAttribute("filter", filter);
 			request.setAttribute("subject", allQuizList);
 			request.setAttribute("pageName", "모든 문제보기");
 			request.setAttribute("subject_no", subject_no);
@@ -83,7 +99,22 @@ public class QuizListPageController implements Controller {
 			}
 			endPage = totalPages;
 			
-			List<QuizVO> quizList = quizService.searchSubjectQuiz(subjectPageVO);
+			List<QuizVO> quizList = null;
+			
+			if (filter.equals("none")) {
+				quizList = quizService.searchSubjectQuiz(subjectPageVO);
+				for (QuizVO quiz : quizList) {
+					System.out.println(quiz);
+				}
+			} else {
+				if (filter.equals("views")) {
+					quizList = quizService.searchSubjectQuizOrderByViewCntDesc(subjectPageVO);
+				} else if (filter.equals("low_correct")) {
+					quizList = quizService.searchSubjectQuizOrderByLowCorrectRatio(subjectPageVO);
+				}
+			}
+			
+			request.setAttribute("filter", filter);
 			request.setAttribute("subject", quizList);
 			request.setAttribute("pageName", subjectVO.getPage_nm());
 			request.setAttribute("subject_no", subject_no);

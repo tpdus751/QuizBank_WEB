@@ -271,4 +271,28 @@ public class QuizServiceImpl implements QuizService {
 		return totalSubjectQuizCnt;
 	}
 
+	@Override
+	public List<QuizVO> searchAllQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO) {
+		List<QuizVO> quizList = quizDao.selectAllQuizOrderByViewCntDesc(subjectPageVO);
+		return quizList;
+	}
+
+	@Override
+	public List<QuizVO> searchAllQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO) {
+		List<QuizVO> quizList = quizDao.searchAllQuizOrderByLowCorrectRatio(subjectPageVO);
+		return quizList;
+	}
+
+	@Override
+	public List<QuizVO> searchSubjectQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO) {
+		List<QuizVO> quizList = quizDao.selectSubjectQuizOrderByViewCntDesc(subjectPageVO);
+		return quizList;
+	}
+
+	@Override
+	public List<QuizVO> searchSubjectQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO) {
+		List<QuizVO> quizList = quizDao.selectSubjectQuizOrderByLowCorrectRatio(subjectPageVO);
+		return quizList;
+	}
+
 }

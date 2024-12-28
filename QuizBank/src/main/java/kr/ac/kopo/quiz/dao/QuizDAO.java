@@ -88,4 +88,12 @@ public interface QuizDAO {
 	Integer selectTotalQuizCnt();
 
 	Integer selectTotalSubjectQuizCnt(int subject_no);
+
+	List<QuizVO> selectAllQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO);
+
+	List<QuizVO> searchAllQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO);
+
+	List<QuizVO> selectSubjectQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO);
+
+	List<QuizVO> selectSubjectQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO);
 }

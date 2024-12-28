@@ -298,5 +298,32 @@ public class QuizDAOImpl implements QuizDAO {
 		return totalSubjectQuizCnt;
 	}
 
-	
+	@Override
+	public List<QuizVO> selectAllQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO) {
+		sqlSession.clearCache();
+		List<QuizVO> quizList = sqlSession.selectList("dao.QuizDAO.selectAllQuizOrderByViewCntDesc", subjectPageVO);
+		return quizList;
+	}
+
+	@Override
+	public List<QuizVO> searchAllQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO) {
+		sqlSession.clearCache();
+		List<QuizVO> quizList = sqlSession.selectList("dao.QuizDAO.searchAllQuizOrderByLowCorrectRatio", subjectPageVO);
+		return quizList;
+	}
+
+	@Override
+	public List<QuizVO> selectSubjectQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO) {
+		sqlSession.clearCache();
+		List<QuizVO> quizList = sqlSession.selectList("dao.QuizDAO.selectSubjectQuizOrderByViewCntDesc", subjectPageVO);
+		return quizList;
+	}
+
+	@Override
+	public List<QuizVO> selectSubjectQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO) {
+		sqlSession.clearCache();
+		List<QuizVO> quizList = sqlSession.selectList("dao.QuizDAO.selectSubjectQuizOrderByLowCorrectRatio", subjectPageVO);
+		return quizList;
+	}
+
 }
