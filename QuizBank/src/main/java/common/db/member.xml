@@ -59,6 +59,67 @@
 	    )
 	</insert>
 
+	<select id="selectTotalMemberCnt" resultType="Integer">
+		select count(*)
+			from members
+	</select>
+	
+	<select id="selectTodayNewMemberCnt" resultType="Integer">
+		select count(*)
+			from members
+			where to_char(reg_dt, 'yymmdd') = to_char(sysdate, 'yymmdd')
+	</select>
+	
+	<select id="selectMonthNewMemberCnt" resultType="Integer">
+		select count(*)
+			from members
+			where to_char(reg_dt, 'yymm') = to_char(sysdate, 'yymm')
+	</select>
+
+	<select id="selectYearNewMemberCnt" resultType="Integer">
+		select count(*)
+			from members
+			where to_char(reg_dt, 'yy') = to_char(sysdate, 'yy')
+	</select>
+	
+	<select id="selectCheckOverrapEmail" parameterType="String" resultType="Integer">
+		select count(*)
+			from members
+			where member_email = #{member_email}
+	</select>
+	
+	<select id="selectAllMembers" resultType="memberVO">
+		select *
+			from members
+			where type in ('U', 'X')
+			order by reg_dt desc
+	</select>
+	
+	<select id="selectpageMembers" parameterType="int" resultType="memberVO">
+		SELECT *
+			FROM (
+			    SELECT m.*, ROW_NUMBER() OVER (ORDER BY m.reg_dt DESC) AS rn
+			    FROM MEMBERS m
+			    where type in ('U', 'X')
+			)
+			WHERE rn BETWEEN (20 * (#{page} - 1)) + 1 AND 20 * #{page}
+	</select>
+	
+	<update id="updateMemberProhibit" parameterType="String">
+		update members
+			set prohibit = sysdate + 7
+			where member_email = #{member_email}
+	</update>
+	
+	<update id="updateProhibitToNull" parameterType="String">
+		update members
+			set prohibit = null
+			where member_email = #{member_email}
+	</update>
+	
+	<delete id="deleteMemberByAdmin" parameterType="String">
+		delete from members where member_email = #{member_email}
+	</delete>
 </mapper>
 
 

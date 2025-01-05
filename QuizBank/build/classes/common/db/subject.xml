@@ -6,7 +6,7 @@
 	
 	<!-- 공통 코드 빼내기 작업 : select Subject -->
 	<sql id="selectSubject">
-		select SUBJECT_NO, SUBJECT_NM, REG_DT, PAGE_NM
+		select *
 			from subjects
 	</sql>
 	
@@ -29,6 +29,28 @@
 		<include refid="selectSubject" />
 		where subject_nm = #{subject_nm}
 	</select>
+	
+	<select id="selectTotalSubjectCnt" resultType="Integer">
+		select count(*)
+			from subjects
+	</select>
+	
+	<select id="selectTotalSubjects" resultType="subjectVO">
+		<include refid="selectSubject" />
+		order by reg_dt desc
+	</select>
+	
+	<delete id="deleteSubjectByNo" parameterType="int">
+		delete from subjects where subject_no = #{subjectNo}
+	</delete>
+	
+	<insert id="insertSubject" parameterType="subjectVO">
+		insert into subjects (
+			subject_no, subject_nm, reg_dt, page_nm
+		) values (
+			seq_subject_no.nextval, #{subject_nm}, sysdate, #{page_nm}
+		)
+	</insert>
 	
 </mapper>
 

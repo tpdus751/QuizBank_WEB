@@ -97,5 +97,7 @@ public interface QuizService {
 	public List<QuizVO> searchSubjectQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO);
 
 	public List<QuizVO> searchSubjectQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO);
+
+	public List<QuizVO> searchPageQuizs(int page);
 	
 }

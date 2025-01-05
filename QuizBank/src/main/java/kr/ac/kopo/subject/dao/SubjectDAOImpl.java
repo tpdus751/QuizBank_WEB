@@ -58,4 +58,35 @@ public class SubjectDAOImpl implements SubjectDAO {
 		return cnt;
 	}
 
+	@Override
+	public int selectTotalSubjectCnt() {
+		sqlSession.clearCache();
+		Integer cnt = sqlSession.selectOne("dao.SubjectDAO.selectTotalSubjectCnt");
+		if (cnt == null) {
+			cnt = 0;
+		}
+		return cnt;
+	}
+
+	@Override
+	public List<SubjectVO> selectTotalSubjects() {
+		sqlSession.clearCache();
+		List<SubjectVO> totalSubjectList = sqlSession.selectList("dao.SubjectDAO.selectTotalSubjects");
+		return totalSubjectList;
+	}
+
+	@Override
+	public int deleteSubject(int subjectNo) {
+		int changeCnt = sqlSession.delete("dao.SubjectDAO.deleteSubjectByNo", subjectNo);
+		sqlSession.commit();
+		return changeCnt;
+	}
+
+	@Override
+	public int insertSubject(SubjectVO subject) {
+		int changeCnt = sqlSession.insert("dao.SubjectDAO.insertSubject", subject);
+		sqlSession.commit();
+		return changeCnt;
+	}
+
 }

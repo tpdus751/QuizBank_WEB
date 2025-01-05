@@ -27,8 +27,13 @@ public class LoginProcessController implements Controller {
 			return "/member/loginPage.jsp";
 		}
 		
-		request.getSession().setAttribute("loginMemberVO", member);
-		return "redirect:/home.do"; // 리다이렉트 경로 반환
+		if (member.getMember_email().equals("admin@naver.com")) {
+			request.getSession().setAttribute("loginMemberVO", member);
+			return "redirect:/admin/home.do"; // 리다이렉트 경로 반환
+		} else {
+			request.getSession().setAttribute("loginMemberVO", member);
+			return "redirect:/home.do"; // 리다이렉트 경로 반환
+		}
 	}
 
 }

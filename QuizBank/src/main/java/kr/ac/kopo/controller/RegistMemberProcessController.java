@@ -19,6 +19,13 @@ public class RegistMemberProcessController implements Controller {
 		
 		if (request.getSession().getAttribute("unMemberVO") != null) {
 			String member_email = request.getParameter("member_email");
+			
+			int checkOverrap = memberService.checkOverrapEmail(member_email);
+			if (checkOverrap > 0) {
+				request.setAttribute("registFailed", "회원가입에 실패하였습니다.");
+				return "redirect:/home.do";
+			}
+			
 			String member_pwd = request.getParameter("member_pwd");
 			String member_nm = request.getParameter("member_nm");
 			String nick_nm = request.getParameter("nick_nm");
@@ -31,17 +38,24 @@ public class RegistMemberProcessController implements Controller {
 			int result = memberService.changeMemberInfoByVO(member);
 			if (result <= 0) {
 				request.setAttribute("registFailed", "회원가입에 실패하였습니다.");
-				return "/home.jsp";
+				return "/home.do";
 			} else {
 				request.getSession().removeAttribute("unMemberVO");
 				request.setAttribute("registSuccess", "회원가입이 성공적으로 이루어졌습니다.");
-				return "/member/loginPage.jsp";
+				return "/member/loginPage.do";
 			}
 		} else {
 			String email_id = request.getParameter("email_id");
 			String email_domain = request.getParameter("email_domain");
 			
 			String member_email = email_id + "@" + email_domain;
+			
+			int checkOverrap = memberService.checkOverrapEmail(member_email);
+			if (checkOverrap > 0) {
+				request.setAttribute("registFailed", "회원가입에 실패하였습니다.");
+				return "/home.do";
+			}
+			
 			String member_pwd = request.getParameter("member_pwd");
 			String member_nm = request.getParameter("member_nm");
 			String nick_nm = request.getParameter("nick_nm");
@@ -54,10 +68,10 @@ public class RegistMemberProcessController implements Controller {
 			int result = memberService.registMemberByVO(member);
 			if (result <= 0) {
 				request.setAttribute("registFailed", "회원가입에 실패하였습니다.");
-				return "/home.jsp";
+				return "/home.do";
 			} else {
 				request.setAttribute("registSuccess", "회원가입이 성공적으로 이루어졌습니다.");
-				return "/member/loginPage.jsp";
+				return "/member/loginPage.do";
 			}
 		}
 		

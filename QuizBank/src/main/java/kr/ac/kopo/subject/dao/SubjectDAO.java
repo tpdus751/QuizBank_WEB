@@ -19,4 +19,12 @@ public interface SubjectDAO {
 
 	public int updateSubjectTotCntPlus(int subject_no);
 
+	public int selectTotalSubjectCnt();
+
+	public List<SubjectVO> selectTotalSubjects();
+
+	public int deleteSubject(int subjectNo);
+
+	public int insertSubject(SubjectVO subject);
+
 }

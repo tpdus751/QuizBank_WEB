@@ -389,6 +389,17 @@
             )
 			WHERE rn BETWEEN (16 * (#{currentPage} - 1)) + 1 AND 16 * #{currentPage}
 	</select>
+	
+	<select id="selectPageQuizs" parameterType="int" resultType="quizVO">
+		SELECT *
+			FROM (
+			    SELECT q.*, m.nick_nm, s.subject_nm, ROW_NUMBER() OVER (ORDER BY q.reg_dt DESC, q.quiz_no ASC, q.group_no ASC) AS rn
+			    FROM QUIZS q
+			    	join members m on m.member_email = q.member_email
+			    	join subjects s on s.subject_no = q.subject_no
+			)
+			WHERE rn BETWEEN (20 * (#{page} - 1)) + 1 AND 20 * #{page}
+	</select>
 </mapper>
 
 

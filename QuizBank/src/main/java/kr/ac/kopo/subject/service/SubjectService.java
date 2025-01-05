@@ -19,4 +19,12 @@ public interface SubjectService {
 
 	public int changeSubjectTotCntPlus(int subject_no);
 
+	public int searchTotalSubjectCnt();
+
+	public List<SubjectVO> searchTotalSubjects();
+
+	public int removeSubjectByNo(int subjectNo);
+
+	public int addSubject(SubjectVO subject);
+
 }

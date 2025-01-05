@@ -108,6 +108,11 @@
 			if (lackOfQuiz && lackOfQuiz.trim() !== '') {  // error가 null, 빈 문자열이 아닌 경우에만 alert
 		        alert(lackOfQuiz);
 		    }
+		
+		var registFailed = '${registFailed}'
+			if (registFailed && registFailed.trim() !== '') {  // error가 null, 빈 문자열이 아닌 경우에만 alert
+		        alert(registFailed);
+		    }
 	}
 	
 	
@@ -242,7 +247,7 @@
                 </c:forEach>
             </div>
             <div class="text-center mt-4">
-                <a class="btn btn-secondary" href="/QuizBank/quiz/quizListPage.do?filter=new">더보기</a>
+                <a class="btn btn-secondary" href="/QuizBank/quiz/quizListPage.do?page=0:1&filter=none">더보기</a>
             </div>
             <hr class="my-5">
         </div>
@@ -282,7 +287,7 @@
                 </c:forEach>
             </div>
             <div class="text-center mt-4">
-                <a class="btn btn-secondary" href="/QuizBank/quiz/quizListPage.do?filter=hot">더보기</a>
+                <a class="btn btn-secondary" href="/QuizBank/quiz/quizListPage.do?page=0:1&filter=views">더보기</a>
             </div>
             <hr class="my-5">
         </div>
@@ -322,7 +327,7 @@
                 </c:forEach>
             </div>
             <div class="text-center mt-4">
-                <a class="btn btn-secondary" href="/QuizBank/quiz/quizListPage.do?filter=hard">더보기</a>
+                <a class="btn btn-secondary" href="/QuizBank/quiz/quizListPage.do?page=0:1&filter=low_correct">더보기</a>
             </div>
             <hr class="my-5">
         </div>

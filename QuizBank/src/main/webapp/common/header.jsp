@@ -1,6 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:choose>
+	<c:when test="${loginMemberVO.type eq 'S'}">
+<!-- 관리자 Header -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0; z-index: 1000;">
+    <div class="container">
+        <!-- 전체를 flex 컨테이너로 설정 -->
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <!-- 왼쪽 영역 -->
+            <div class="d-flex align-items-center left-section">
+                <!-- 로고 -->
+                <a class="navbar-brand" href="/QuizBank/admin/home.do">QUIZBANK 관리자</a>
+            </div>
+
+            <!-- 중앙 영역 -->
+            <div class="center-section">
+                <ul class="navbar-nav d-flex flex-row gap-3">
+                    <!-- 회원 관리 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/QuizBank/admin/memberManagementPage.do?page=1">회원 관리</a>
+                    </li>
+                    <!-- 문제 종류 관리 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/QuizBank/admin/subjectManagementPage.do">문제 종류 관리</a>
+                    </li>
+                    <!-- 문제 관리 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/QuizBank/admin/quizManagementPage.do?page=1">문제 관리</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 오른쪽 영역 -->
+            <div class="d-flex align-items-center right-section">
+	            <span class="welcome-message me-3">관리자님 환영합니다.</span>
+	            <a class="btn btn-outline-dark" href="/QuizBank/member/logout.do">로그아웃</a>
+            </div>
+        </div>
+    </div>
+</nav>
+	</c:when>
+	<c:otherwise>
 <!-- Header-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0; z-index: 1000;">
     <div class="container">
@@ -96,3 +137,5 @@
 		location.href = "/QuizBank/member/loginPage.do";
 	}
 </script>
+</c:otherwise>
+</c:choose>

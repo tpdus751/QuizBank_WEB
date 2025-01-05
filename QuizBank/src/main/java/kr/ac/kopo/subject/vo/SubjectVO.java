@@ -17,6 +17,12 @@ public class SubjectVO {
 	public SubjectVO(String subject_nm) {
 		this.subject_nm = subject_nm;
 	}
+	
+	public SubjectVO(String subject_nm, String page_nm) {
+		super();
+		this.subject_nm = subject_nm;
+		this.page_nm = page_nm;
+	}
 
 	public SubjectVO(int subject_no, String subject_nm, String reg_dt, int try_cnt, int mean_score, int total_quiz_cnt, String page_nm, String subject_img) {
 		this.subject_no = subject_no;

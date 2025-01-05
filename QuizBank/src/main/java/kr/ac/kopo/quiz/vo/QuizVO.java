@@ -21,6 +21,7 @@ public class QuizVO {
 	
 	// 추가
 	private String nick_nm;
+	private String subject_nm;
 	
 	public QuizVO() {
 	}
@@ -245,6 +246,14 @@ public class QuizVO {
 	public void setNick_nm(String nick_nm) {
 		this.nick_nm = nick_nm;
 	}
+	
+	public String getSubject_nm() {
+		return subject_nm;
+	}
+
+	public void setSubject_nm(String subject_nm) {
+		this.subject_nm = subject_nm;
+	}
 
 	@Override
 	public String toString() {
@@ -253,7 +262,7 @@ public class QuizVO {
 				+ ", quiz_nm=" + quiz_nm + ", quiz_type=" + quiz_type + ", content=" + content + ", explanation="
 				+ explanation + ", answer=" + answer + ", reg_dt=" + reg_dt + ", try_cnt=" + try_cnt
 				+ ", correct_ratio=" + correct_ratio + ", view_cnt=" + view_cnt + ", quiz_img=" + quiz_img
-				+ ", correct_cnt=" + correct_cnt + "]";
+				+ ", correct_cnt=" + correct_cnt + ", nick_nm=" + nick_nm + ", subject_nm=" + subject_nm + "]";
 	}
 
 }

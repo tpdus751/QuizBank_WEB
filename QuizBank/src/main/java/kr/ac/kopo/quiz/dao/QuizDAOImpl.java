@@ -326,4 +326,11 @@ public class QuizDAOImpl implements QuizDAO {
 		return quizList;
 	}
 
+	@Override
+	public List<QuizVO> selectPageQuizs(int page) {
+		sqlSession.clearCache();
+		List<QuizVO> pageQuizList = sqlSession.selectList("dao.QuizDAO.selectPageQuizs", page);
+		return pageQuizList;
+	}
+
 }

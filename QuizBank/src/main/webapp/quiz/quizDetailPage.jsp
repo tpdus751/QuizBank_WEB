@@ -786,7 +786,7 @@ textarea.edit-reply-textarea:focus {
                 <img src="/QuizBank${quizVO.quiz_img}" class="img-fluid rounded" alt="${quizVO.quiz_nm}" />
             </div>
             
-            <c:if test="${not empty loginMemberVO}">
+            <c:if test="${not empty loginMemberVO and loginMemberVO.type eq 'U'}">
             <!-- 시험 리스트에 담기 버튼 추가 -->
             <div class="mb-4">
                 <form action="/QuizBank/quiz/workQuizToMyExamList.do" method="POST" class="d-flex justify-content-center">
@@ -861,6 +861,9 @@ textarea.edit-reply-textarea:focus {
                     <c:choose>
                         <c:when test="${not empty subject and not empty page}">
                             <a href="/QuizBank/quiz/quizListPage.do?page=${subject}:${page}" class="btn btn-secondary">이전으로</a>
+                        </c:when>
+                        <c:when test="${not empty adminPage}">
+                        	<a href="/QuizBank/admin/quizManagementPage.do?page=${page}" class="btn btn-secondary">이전으로</a>
                         </c:when>
                         <c:otherwise>
                             <a href="/QuizBank/member/myPage.do?" class="btn btn-secondary">이전으로</a>

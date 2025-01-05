@@ -57,4 +57,32 @@ public class SubjectServiceImpl implements SubjectService {
 		return cnt;
 	}
 
+
+	@Override
+	public int searchTotalSubjectCnt() {
+		int totalSubjectCnt = subjectDao.selectTotalSubjectCnt();
+		return totalSubjectCnt;
+	}
+
+
+	@Override
+	public List<SubjectVO> searchTotalSubjects() {
+		List<SubjectVO> totalSubjectList = subjectDao.selectTotalSubjects();
+		return totalSubjectList;
+	}
+
+
+	@Override
+	public int removeSubjectByNo(int subjectNo) {
+		int changeCnt = subjectDao.deleteSubject(subjectNo);
+		return changeCnt;
+	}
+
+
+	@Override
+	public int addSubject(SubjectVO subject) {
+		int changeCnt = subjectDao.insertSubject(subject);
+		return changeCnt;
+	}
+
 }

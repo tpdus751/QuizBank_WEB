@@ -96,4 +96,6 @@ public interface QuizDAO {
 	List<QuizVO> selectSubjectQuizOrderByViewCntDesc(SubjectPageVO subjectPageVO);
 
 	List<QuizVO> selectSubjectQuizOrderByLowCorrectRatio(SubjectPageVO subjectPageVO);
+
+	List<QuizVO> selectPageQuizs(int page);
 }

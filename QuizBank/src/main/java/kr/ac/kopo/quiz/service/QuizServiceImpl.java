@@ -295,4 +295,10 @@ public class QuizServiceImpl implements QuizService {
 		return quizList;
 	}
 
+	@Override
+	public List<QuizVO> searchPageQuizs(int page) {
+		List<QuizVO> pageQuizList = quizDao.selectPageQuizs(page);
+		return pageQuizList;
+	}
+
 }

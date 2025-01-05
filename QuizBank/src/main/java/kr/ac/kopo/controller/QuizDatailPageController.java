@@ -32,6 +32,8 @@ public class QuizDatailPageController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		String adminPageStr = request.getParameter("adminPage");
+		
 		String beforePageInfo = request.getParameter("beforePage");
 		String subject = null;
 		int page = 0;
@@ -77,9 +79,12 @@ public class QuizDatailPageController implements Controller {
 		
 		request.setAttribute("memberVO", memberVO);
 		request.setAttribute("quizVO", quizVO);
-		if (beforePageInfo != null) {
+		if (beforePageInfo != null && adminPageStr == null) {
 			request.setAttribute("subject", subject);
 			request.setAttribute("page", page);
+		} else if (beforePageInfo == null && adminPageStr != null) {
+			request.setAttribute("adminPage", "관리자");
+			request.setAttribute("page", adminPageStr);
 		}
 		
 		System.out.println(quizVO.getMember_email());
