@@ -50,34 +50,68 @@
 
 ## 🗂️ 주요 화면
 
-| 화면 | 설명 |
-|------|------|
-| 메인 페이지 | 새로 추가된 문제 / 인기 문제 / 정답률 낮은 문제 (TOP 4) |
-| 문제 리스트 | 종류별 / 정렬기준 / 페이징 |
-| 문제 상세 | 문제 풀이 여부 / 댓글 / 시험리스트 담기 |
-| 시험 페이지 | 랜덤 문제, 타이머, 점수 계산, 틀린 문제 리뷰 |
-| 마이페이지 | 내 정보, 등록 문제, 시험 기록, 저장한 문제 |
-| 관리자 페이지 | 회원 관리 / 문제 관리 / 과목 관리 / 통계 제공 |
-| 지도 이벤트 | 장소 검색 시 힌트 제공 + 크레딧 지급 기능
+🏠 메인 페이지
+![image](https://github.com/user-attachments/assets/f6d3a0d1-948d-4abc-b2dd-168990f88dea)
+새로 추가된 문제, 인기 문제, 정답률 낮은 문제 TOP 4를 슬라이드 또는 그리드 형태로 시각화
 
+
+
+📝 문제 리스트 페이지
+![image](https://github.com/user-attachments/assets/5dcb1a38-9330-44c5-b1da-8c05f7d9cec6)
+문제를 종류별로 정렬하거나, 최신순/조회수순/정답률 낮은순 필터를 적용하여 조회
+![image](https://github.com/user-attachments/assets/012bf35c-d876-42cf-992b-ee448ed0eb6d)
+페이징 처리되어 한 페이지에 문제 4개씩 표시
+
+
+📄 문제 상세 페이지
+![image](https://github.com/user-attachments/assets/500c83b1-3a70-4b32-89f4-fbe98b008fba)
+문제 제목, 내용, 이미지, 해설, 정답 확인 + 시험리스트 담기
+![image](https://github.com/user-attachments/assets/126811e1-7061-4e1e-950d-6ac1d7c330f0)
+댓글, 대댓글 기능 포함 (AJAX 기반)
+
+
+🧪 시험 페이지
+![image](https://github.com/user-attachments/assets/0da7dfb4-bc47-4ac4-8acd-c1795008ec7a)
+![image](https://github.com/user-attachments/assets/8a4f4d15-8513-4e1d-aedc-e652b6da9f5b)
+1~20번 랜덤 문제 (전체 또는 종류별 선택), 10분 타이머, 객관식 보기 랜덤 출력
+제출 시 점수 및 틀린 문제 피드백 제공
+
+
+📊 시험 결과 페이지
+![image](https://github.com/user-attachments/assets/c3ded252-b43b-40d7-8abf-f44fb6fb158d)
+![image](https://github.com/user-attachments/assets/62162ff1-0a4f-45b9-a82f-0806c7fabb34)
+시험 제출 후 총점 / 과목별 점수 / 맞은 개수 확인
+틀린 문제는 상세 페이지 바로가기 버튼 제공
+
+
+🧭 지도 이벤트 페이지
+![image](https://github.com/user-attachments/assets/a8a84bc6-df6b-4169-a8dd-4f0d73d605e7)
+카카오 지도 API를 통해 장소 검색 + 힌트 확인
+참여 시 크레딧 제공 (이벤트 시스템)
+
+
+🛠 관리자 페이지
+![image](https://github.com/user-attachments/assets/f7e94d98-4847-4728-ad50-a74988938b1c)
+회원 관리 / 문제 관리 / 과목 관리 등 전체 통계를 확인하고 관리 가능
+![image](https://github.com/user-attachments/assets/be9f5282-09ea-4c71-8160-dc89fd7f8fec)
+제재 기능 및 페이징 포함
 ---
 
 ## 🧩 DB 및 아키텍처 설계
 
 ### 📌 클라이언트-서버 구조
 
-[Client] ←→ [Controller(Servlet)] ←→ [Service] ←→ [DAO(MyBatis)] ←→ [Oracle DB]
+![image](https://github.com/user-attachments/assets/b2dbc6bc-467f-4df7-a5ac-6d9d6bd707b2)
 
-yaml
-복사
-편집
+[Client] ←→ [Controller(Servlet)] ←→ [Service] ←→ [DAO(MyBatis)] ←→ [Oracle DB]
 
 ### 📌 ERD 설계 요약
 
-- `MEMBERS`, `QUIZS`, `QUIZ_COMMENT`, `SUBJECTS`, `MEMBER_CREDIT_FLOW`, `QUIZ_HINT` 등 10개 이상 테이블로 구성
-- `MEMBER_SAVEQUIZ` 및 `MEMBER_QUIZ`를 통해 시험 기록 및 즐겨찾기 관리
+![image](https://github.com/user-attachments/assets/8da3e10c-ebf6-4255-97c6-57d79052b96d)
 
-> 상세 ERD 및 테이블 명세는 보고서 참조
+- `MEMBERS`, `QUIZS`, `QUIZ_COMMENT`, `SUBJECTS`, `MEMBER_CREDIT_FLOW`, `QUIZ_HINT` 등 10개 이상 테이블로 구성
+
+> 테이블 명세는 보고서 참조
 
 ---
 
@@ -116,7 +150,7 @@ yaml
 ## 📎 관련 문서
 
 - **[프로젝트 보고서 다운로드](./2403110273.0105.docx)**  
-  → 상세 기능 설명, ERD, 화면 설계, 기능명세서 등 포함
+  → 상세 기능 설명, 요구사항 명세서, 테이블 명세서, 기능명세서, 화면 설계 등 포함
 
 ---
 
@@ -127,11 +161,3 @@ yaml
 | 박세연 | 기획 / 프론트 & 백엔드 개발 / DB 설계 / 보고서 작성 |
 
 ---
-
-## 💡 향후 개선 아이디어
-
-- 시험 결과에 따른 개인 학습 리포트 자동 생성
-- 문제 추천 시스템 도입 (틀린 유형 기반)
-- 성취도 기반 레벨 시스템 구현
-- RESTful API로 구조 전환 및 모바일 버전 확장
-
